@@ -26,6 +26,7 @@ func NewPrompt() *Prompt {
 }
 
 func (p *Prompt) Handler(h func(s string)) {
+	sourcePrefix := p.prefix
 	for {
 		fmt.Print(p.prefix)
 		line, _, err := p.r.ReadLine()
@@ -50,8 +51,8 @@ func (p *Prompt) Handler(h func(s string)) {
 			continue
 		}
 		ss := p.Clean()
-		p.SetPrefix(p.prefix)
 		h(ss)
+		p.SetPrefix(sourcePrefix)
 	}
 }
 
